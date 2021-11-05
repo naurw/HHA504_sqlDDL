@@ -1,2 +1,3 @@
 # HHA504_sqlTrigger
-SQL DDL 
+- Performed DDL using MSSQL
+- Alternatively performed DDL using sqlalchemy ORM 
