@@ -11,7 +11,7 @@ from sqlalchemy import create_engine, Column, Integer, String, Float
 import sqlalchemy
 from dotenv import load_dotenv
 import os 
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import sessionmaker, validates 
 from sqlalchemy.ext.declarative import declarative_base
 
 mysqluser = os.getenv('mysqluser')
@@ -41,6 +41,13 @@ class MedicalNotesDemo(Base):
     dosage = Column(Integer())
     cost = Column(Float())
     sex = Column(String(100))
+    
+    @validates('age')
+    def validateAge(self, key, medicalNotesDemo):
+        if '.' in medicalNotesDemo: 
+            raise ValueError('Failed simple age validation--whole numbers only')
+        return medicalNotesDemo
+            
     
 Base.metadata.create_all(engine) 
 
